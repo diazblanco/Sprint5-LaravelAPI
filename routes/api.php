@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -27,5 +28,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/player', [AuthController::class, 'register'])->name('register'); //POST /players : crea un jugador/a.
 Route::post('/login', [AuthController::class, 'login'])->name('login'); //loguea jugador/a.
 
+Route::middleware('auth:api')->group(function(){
+    Route::get('/index', [UserController::class, 'index'])->name('index');
+
+});
 
 
