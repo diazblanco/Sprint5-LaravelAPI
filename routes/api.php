@@ -25,5 +25,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/player', [AuthController::class, 'register'])->name('register'); //POST /players : crea un jugador/a.
+Route::post('/login', [AuthController::class, 'login'])->name('login'); //loguea jugador/a.
+
 
 

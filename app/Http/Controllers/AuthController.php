@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -25,5 +26,22 @@ class AuthController extends Controller
             'access_token'=> $accessToken,
             //'message'=>"L'usuari " . $user['name'] . " s'ha creat correctament"
         ],201);
+    }
+
+    public function login(Request $request){
+        $credentials = $request->only('email', 'password');
+
+        if(!Auth::attempt($credentials)){
+            return response([
+                'message'=>"L'usuari i/o la contrasenya no son correctes"
+            ],422); //401 No autoritzat
+        }
+
+        $accessToken = Auth::user()->createToken('authTestToken')->accessToken;
+
+        return response([
+            'user'=> Auth::user(),
+            'access_token'=> $accessToken
+        ]);
     }
 }
