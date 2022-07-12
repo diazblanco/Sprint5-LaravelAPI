@@ -30,7 +30,9 @@ Route::post('/login', [AuthController::class, 'login'])->name('login'); // Logue
 
 Route::middleware('auth:api')->group(function(){
     Route::get('/index', [UserController::class, 'index'])->name('index'); // Muestra todos los users
+
     Route::put('/players/{id}', [UserController::class, 'update'])->name('update'); // modifica el nom del jugador/a.
+    
     Route::post('/players/{id}/games', [GameController::class, 'throw'])->name('throw'); // un jugador/a específic realitza una tirada dels daus.
     Route::delete('/players/{id}/games', [GameController::class, 'delete'])->name('delete'); // elimina les tirades del jugador/a.
     Route::get('/players', [GameController::class, 'allAverage'])->name('allAverage'); // retorna el llistat de tots els jugadors/es del sistema amb el seu percentatge mitjà d’èxits

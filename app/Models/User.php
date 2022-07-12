@@ -45,8 +45,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function games()
-    {
+    public function games(){
         return $this->hasMany(Game::class); //Relación uno a muchos. Un jugador, muchas partidas
     }
 }
