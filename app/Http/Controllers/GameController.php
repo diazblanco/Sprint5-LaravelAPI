@@ -17,4 +17,9 @@ class GameController extends Controller{
         return response()->json(["success" => true, "message" => "Partida realitzada correctament"],200);
     }
     
+    public function delete($id) {
+        Game::where('user_id', $id)->delete();
+
+        return response()->json(["success" => true, "message" => "Partides esborrades correctament"],200);
+    }
 }
