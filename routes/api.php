@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GameController;
 
 
 /*
@@ -30,11 +31,12 @@ Route::post('/login', [AuthController::class, 'login'])->name('login'); // Logue
 
 Route::middleware('auth:api')->group(function(){
     Route::get('/index', [UserController::class, 'index'])->name('index'); // Muestra todos los users
-
     Route::put('/players/{id}', [UserController::class, 'update'])->name('update'); // modifica el nom del jugador/a.
+    Route::post('/players/{id}/games', [GameController::class, 'store'])->name('store'); // un jugador/a específic realitza una tirada dels daus.
     
-    Route::post('/players/{id}/games', [GameController::class, 'throw'])->name('throw'); // un jugador/a específic realitza una tirada dels daus.
+
     Route::delete('/players/{id}/games', [GameController::class, 'delete'])->name('delete'); // elimina les tirades del jugador/a.
+    
     Route::get('/players', [GameController::class, 'allAverage'])->name('allAverage'); // retorna el llistat de tots els jugadors/es del sistema amb el seu percentatge mitjà d’èxits
     Route::get('/players/{id}/games', [GameController::class, 'show'])->name('show'); // retorna el llistat de jugades per un jugador/a.
     Route::get('/players/ranking', [GameController::class, 'ranking'])->name('ranking'); // retorna el rànquing mitjà de tots els jugadors/es del sistema. És a dir, el percentatge mitjà d’èxits.
